@@ -1,8 +1,10 @@
 plugins {
-    // Apply the java-library plugin for API and implementation separation.
     id 'java-library'
     id 'maven-publish'
 }
+
+group = 'com.easy1staking'
+version = '0.0.1-alpha1-SNAPSHOT'
 
 repositories {
     // Use Maven Central for resolving dependencies.
@@ -21,6 +23,24 @@ dependencies {
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = "https://maven.pkg.github.com/easy1staking-com/cardano-client-lib-extensions"
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
+            }
+        }
     }
 }
 
