@@ -2,6 +2,8 @@ plugins {
     // Apply the java-library plugin for API and implementation separation.
     id 'java-library'
     id 'maven-publish'
+    id 'org.springframework.boot' version '3.3.4'
+    id 'io.spring.dependency-management' version '1.1.6'
 }
 
 repositories {
@@ -10,6 +12,16 @@ repositories {
 }
 
 dependencies {
+
+    api('com.bloxbean.cardano:cardano-client-lib:0.7.0-beta4')
+    api('com.bloxbean.cardano:yaci-store-utxo:2.0.0-beta3')
+
+    // Lombok
+    compileOnly 'org.projectlombok:lombok:1.18.30'
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.30'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
 
     // Use JUnit Jupiter for testing.
     testImplementation libs.junit.jupiter
