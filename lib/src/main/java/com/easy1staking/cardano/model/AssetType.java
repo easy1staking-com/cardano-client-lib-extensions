@@ -4,6 +4,8 @@ import com.bloxbean.cardano.client.util.HexUtil;
 
 public record AssetType(String policyId, String assetName) {
 
+    private static final Integer POLICY_ID_LENGTH = 56;
+
     public static final String LOVELACE = "lovelace";
 
     private static final AssetType Ada = new AssetType("", "");
@@ -31,7 +33,7 @@ public record AssetType(String policyId, String assetName) {
         }
 
         var sanitizedUnit = unit.replaceAll("\\.", "");
-        if (sanitizedUnit.length() <= 56) {
+        if (sanitizedUnit.length() < POLICY_ID_LENGTH) {
             throw new IllegalArgumentException("Invalid asset unit length: " + unit.length());
         } else {
             return new AssetType(sanitizedUnit.substring(0, 56), sanitizedUnit.substring(56));
