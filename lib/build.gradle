@@ -14,6 +14,7 @@ repositories {
 dependencies {
 
     api('com.bloxbean.cardano:cardano-client-lib:0.7.0-beta4')
+
     api('com.bloxbean.cardano:yaci-store-utxo:2.0.0-beta3')
 
     // Lombok
@@ -33,6 +34,25 @@ dependencies {
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            artifactId = 'cardano-client-lib-extensions'
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = "https://maven.pkg.github.com/easy1staking-com/cardano-client-lib-extensions"
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
+            }
+        }
     }
 }
 
