@@ -52,6 +52,9 @@ public record Rational(BigInteger num, BigInteger den) {
         BigInteger gcd = num.gcd(den);
         return Rational.from(num.divide(gcd), den.divide(gcd));
     }
+    public static Rational generate(Double decimalNumber) {
+        return generate(BigDecimal.valueOf(decimalNumber));
+    }
 
     public Rational add(Rational that) {
         return new Rational(this.num.multiply(that.den).add(this.den.multiply(that.num)), this.den.multiply(that.den));

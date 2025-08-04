@@ -1,7 +1,10 @@
 package com.easy1staking.cardano.model;
 
 import com.bloxbean.cardano.client.util.HexUtil;
+import com.easy1staking.json.AssetTypeSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+@JsonSerialize(using = AssetTypeSerializer.class)
 public record AssetType(String policyId, String assetName) {
 
     private static final Integer POLICY_ID_LENGTH = 56;
