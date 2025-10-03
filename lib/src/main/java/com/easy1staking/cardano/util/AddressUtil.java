@@ -3,6 +3,7 @@ package com.easy1staking.cardano.util;
 import com.bloxbean.cardano.client.address.Address;
 import com.bloxbean.cardano.client.address.AddressProvider;
 import com.bloxbean.cardano.client.address.AddressType;
+import com.bloxbean.cardano.client.address.Credential;
 import com.bloxbean.cardano.client.address.util.AddressEncoderDecoderUtil;
 import lombok.extern.slf4j.Slf4j;
 
@@ -49,6 +50,16 @@ public class AddressUtil {
                     .map(AddressProvider::getStakeAddress)
                     .map(stakingAddress -> watchingAddress.getAddress().equals(stakingAddress.getAddress()))
                     .orElse(false);
+            default -> false;
+        };
+    }
+
+    public static boolean matchingCredential(Address watchingAddress, Credential credential) {
+        return switch (watchingAddress.getAddressType()) {
+            case Enterprise -> watchingAddress.getPaymentCredential().map(credential::equals).orElse(false);
+            case Base -> watchingAddress.getPaymentCredential().map(credential::equals).orElse(false) ||
+                    watchingAddress.getDelegationCredential().map(credential::equals).orElse(false);
+            case Reward -> watchingAddress.getDelegationCredential().map(credential::equals).orElse(false);
             default -> false;
         };
     }
