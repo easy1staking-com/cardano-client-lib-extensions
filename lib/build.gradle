@@ -43,7 +43,7 @@ tasks.named('test') {
 
 mavenPublishing {
 
-    coordinates("com.easy1staking", "cardano-client-lib-extensions", "0.0.1-SNAPSHOT")
+    coordinates("com.easy1staking", "cardano-client-lib-extensions", "0.0.2")
 
     publishToMavenCentral()
 
