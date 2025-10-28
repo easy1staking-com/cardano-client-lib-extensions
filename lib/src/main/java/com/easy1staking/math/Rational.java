@@ -52,6 +52,7 @@ public record Rational(BigInteger num, BigInteger den) {
         BigInteger gcd = num.gcd(den);
         return Rational.from(num.divide(gcd), den.divide(gcd));
     }
+
     public static Rational generate(Double decimalNumber) {
         return generate(BigDecimal.valueOf(decimalNumber));
     }
@@ -81,6 +82,14 @@ public record Rational(BigInteger num, BigInteger den) {
             return this;
         } else {
             return that;
+        }
+    }
+
+    public Rational min(Rational that) {
+        if (this.gt(that)) {
+            return that;
+        } else {
+            return this;
         }
     }
 
